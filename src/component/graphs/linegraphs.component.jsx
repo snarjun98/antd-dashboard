@@ -18,30 +18,11 @@ const DemoLine = () => {
         padding: 'auto',
         xField: 'Date',
         yField: 'scales',
-        annotations: [
-            {
-                type: 'regionFilter',
-                start: ['min', 'median'],
-                end: ['max', '0'],
-                color: '#F4664A',
-            },
-            {
-                type: 'text',
-                position: ['min', 'median'],
-                content: 'Pulse',
-                offsetY: -4,
-                style: { textBaseline: 'bottom' },
-            },
-            {
-                type: 'line',
-                start: ['min', 'median'],
-                end: ['max', 'median'],
-                style: {
-                    stroke: '#F4664A',
-                    lineDash: [2, 2],
-                },
-            },
-        ],
+    //     xAxis: { tickCount: 10 },
+    // slider: {
+    //   start: 0.1,
+    //   end: 0.5,
+    // },
     };
     return <Line {...config}/>;
 };
