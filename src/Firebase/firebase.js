@@ -1,5 +1,7 @@
 import firebase from "firebase/app";
 import "firebase/auth";
+import 'firebase/analytics';
+import 'firebase/storage';
 import 'firebase/firestore';
 
 const app = firebase.initializeApp({
@@ -39,6 +41,45 @@ export const createUserProfileDocument = async(userAuth,additionalData)=>{
   return userRef;
 };
 
+export const createCattleProfileDocument = async(cattleData)=>{
+  const cattleRef = firestore.doc(`cattles/${cattleData.invoice_id}`);
+  const snapShot = await cattleRef.get();
+  const { cattle_id,age,Name,breed,image_url,image_name } = cattleData; // need to be changed
+  const data={id:cattle_id,
+    age:age,
+    name:Name,
+    breed:breed,
+    image_url:image_url,
+    image_name:image_name
+  }
+
+  if(!snapShot.exists){
+    try {
+      await cattleRef.set({
+        cattle_data:[
+          data
+        ]
+      })
+
+    } catch(error){
+       console.log(error); 
+    }
+  }
+  else{
+    try {
+      await cattleRef.update({
+        cattle_data: firebase.firestore.FieldValue.arrayUnion(data)
+      })
+
+    } catch(error){
+       console.log(error); 
+    }
+  }
+  return cattleRef;
+};
+
+
 export const auth = app.auth();
 export const firestore = app.firestore();
+export const storage =app.storage();
 export default app;

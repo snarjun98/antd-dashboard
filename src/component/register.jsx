@@ -57,7 +57,7 @@ const RegistrationForm = () => {
       );
       await createUserProfileDocument(user,{phone,displayName,invoiceId});
     } catch (error) {
-      console.error(error);
+      console.log(error);
     }
   };
 
