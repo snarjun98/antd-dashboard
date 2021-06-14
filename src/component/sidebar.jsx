@@ -17,7 +17,7 @@ onCollapse={(collapsed, type) => {
   position: 'fixed',
 }} >
   <div className='container' style={{position:'relative',height:'200px',width:'100%'}}>
-  <img src={wave} alt="Norway" style={{width:'100%',height:'100%'}} />
+  <img src={wave} alt="Norway" style={{width:'100%',height:'100%',opacity:'0.9'}} />
 <div class="text-block" style={{position: 'absolute',
 bottom: '20px',right:'60px'}}>
 <h2>GOOD MORNING</h2>

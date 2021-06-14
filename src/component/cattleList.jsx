@@ -2,19 +2,14 @@ import React, { useState,useEffect } from 'react';
 import 'antd/dist/antd.css';
 import './sidebar.css';
 import { withRouter } from 'react-router-dom'
-import cowPic from './cowPic.jpg';
-import { List, Popconfirm, Layout, Card, Drawer, Form, Button, Col, Row, Input,Radio, Select, DatePicker } from 'antd';
+import { List, Popconfirm, Layout, Card, Drawer, Form, Button, Col, Row, Input,Radio, Select } from 'antd';
 import { DownloadOutlined, EyeOutlined, DeleteOutlined, QuestionCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import { selectCurrentUser } from '../redux/user/user.selector';
 import { createStructuredSelector } from 'reselect';
 import { storage, firestore,createCattleProfileDocument } from '../Firebase/firebase';
 import {connect} from 'react-redux';
-import { compose } from 'redux';
 import 'firebase/firestore';
-import firebase from "firebase/app";
-import { Component } from 'react';
-import { cleanup } from '@testing-library/react';
-import { Upload, message } from 'antd';
+import { Upload } from 'antd';
 import { InboxOutlined } from '@ant-design/icons';
 
 const { Dragger } = Upload;

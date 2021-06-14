@@ -74,7 +74,7 @@ const CattleProfile=()=>(
     </Card>
     <br></br>
     <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
-    <Col className="gutter-row" span={24} id='container' style={{top:'25px'}} >
+    <Col className="gutter-row" span={24} id='container' >
       <Card title="Pulse" bordered={true} >
      <div style={{height:'20vh'}}> <DemoLine /></div>
     </Card>

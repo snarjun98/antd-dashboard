@@ -1,12 +1,31 @@
-import { Layout,Card,Badge,Popover, Menu, Breadcrumb,Row,Avatar,Col,Button,Input} from 'antd';
-import { BellOutlined ,UserOutlined,CommentOutlined,ToolOutlined,DashboardOutlined,EnvironmentOutlined,BankOutlined } from '@ant-design/icons';
+import { Layout,Modal,Badge,Popover,Button, Row,Avatar,Col,Input} from 'antd';
+import { BellOutlined ,PoweroffOutlined,UserOutlined} from '@ant-design/icons';
 import logo from "./logo.svg";
 import React from 'react';
 import {auth} from '../Firebase/firebase'
+import { connect } from 'react-redux';
+import { selectCurrentUser } from '../redux/user/user.selector';
+import { createStructuredSelector } from 'reselect';
 const onSearch = value => console.log(value);
 const {Search}=Input;
 const {Header} =Layout;
-const TopHeader=()=>(
+function info(currentuser) {
+  Modal.info({
+    title: `Profile Info`,
+    content: (
+      <div>
+        <p></p>
+        <p>Name : {currentuser.displayName}</p>
+        <p>Email : {currentuser.email}</p>
+        <p>Phone : {currentuser.phone}</p>
+        <p>Invoice Id : {currentuser.invoiceId}</p>
+      </div>
+    ),
+    onOk() {},
+  });
+}
+const TopHeader=({currentuser})=>(
+  
 
 <Header className="header" style={{ position: 'fixed', zIndex: 1, width: '100%',padding:'0',borderBottom:'1px solid #e6eeee' }} >
 <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }} >
@@ -31,8 +50,9 @@ bordered={false}
 </Badge>
 </Col>
 <Col className="gutter-row" span={2} style={{textAlign:'center'}} >
-<Popover placement="bottomRight"  content={<div><a>Profile</a><br></br> 
-<a onClick={()=> auth.signOut()} >LogOut</a>
+<Popover placement="bottomRight"  content={<div><Button  icon={<UserOutlined />} onClick={()=>info(currentuser)}>Profile ! </Button><br></br> 
+<p></p>
+<Button  type="primary" icon={<PoweroffOutlined />} onClick={()=> auth.signOut()} >LogOut</Button>
 </div>} trigger="click">
 <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"  size={{
 xs: 24/1.6,
@@ -50,12 +70,9 @@ bottom:'5px'
 
 </Col>
 </Row>
-
-{/* <Menu className='navBar' theme="light" mode="horizontal" defaultSelectedKeys={['2']}>
-  <Menu.Item key="1">nav 1</Menu.Item>
-  <Menu.Item key="2">nav 2</Menu.Item>
-  <Menu.Item key="3">nav 3</Menu.Item>
-</Menu> */}
 </Header>
 );
-export default TopHeader;
+const mapStateToProps = createStructuredSelector({
+  currentuser :selectCurrentUser
+});
+export default connect(mapStateToProps)(TopHeader);
