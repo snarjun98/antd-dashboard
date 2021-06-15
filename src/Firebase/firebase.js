@@ -44,13 +44,15 @@ export const createUserProfileDocument = async(userAuth,additionalData)=>{
 export const createCattleProfileDocument = async(cattleData)=>{
   const cattleRef = firestore.doc(`cattles/${cattleData.invoice_id}`);
   const snapShot = await cattleRef.get();
-  const { cattle_id,age,Name,breed,image_url,image_name } = cattleData; // need to be changed
+  const { cattle_id,age,Name,breed,image_url,image_name,gender,color } = cattleData; // need to be changed
   const data={id:cattle_id,
     age:age,
     name:Name,
     breed:breed,
     image_url:image_url,
-    image_name:image_name
+    image_name:image_name,
+    gender:gender,
+    color:color
   }
 
   if(!snapShot.exists){

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Gauge } from '@ant-design/charts';
-const DemoGauge = () => {
+const DemoGauge = ({temp}) => {
     var [percent, setPercent] = useState(0.2);
     var [rangeColor, setRangeColor] = useState('#F4664A');
     var color = ['#30BF78','#FAAD14','#F4664A'];
@@ -9,7 +9,7 @@ const DemoGauge = () => {
         return percent < 0.4 ? color[0] : percent < 0.6 ? color[1] : color[2];
     };
     var config = {
-        percent,
+        percent:parseInt(temp)/100,
         range: { color: rangeColor },
         indicator: {
             pointer: { style: { stroke: '#D0D0D0' } },
@@ -27,7 +27,7 @@ const DemoGauge = () => {
             content: {
                 formatter: function formatter(_ref) {
                     var percent = _ref.percent;
-                    return ''.concat((percent * 100).toFixed(0), '&#xb0;','C');
+                    return ''.concat((percent*100).toFixed(0), '&#xb0;','C');
                 },
             },
             style: { fontSize: '10px' ,color:'red'},

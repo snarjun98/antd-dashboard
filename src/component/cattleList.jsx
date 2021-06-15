@@ -40,6 +40,8 @@ const handleSubmit = async (values) => {
   const age  = values.age;
   const breed = values.Breed;
   const imageData=values.image.file.originFileObj;
+  const gender=values.gender;
+  const color=values.color;
   // const image_url=`images/${cattle_id}`;
   const image_name=imageData.name;
 
@@ -50,7 +52,7 @@ const handleSubmit = async (values) => {
       .then(url => {
       return url
       });
-    await createCattleProfileDocument({invoice_id,cattle_id,age,Name,breed,image_url,image_name});
+    await createCattleProfileDocument({invoice_id,cattle_id,age,Name,breed,image_url,image_name,gender,color});
     sensData()
     getResult(currentuser)
     setVisible(false)
@@ -132,10 +134,11 @@ const handleSubmit = async (values) => {
               <img
                 alt="example"
                 src={item.image_url}
+                height="144px"
               />
             }
             actions={[
-              <EyeOutlined onClick={() => { history.push('/cattle_profile') }} />,
+              <EyeOutlined onClick={() => { history.push(`/cattle/${item.id}`) }} />,
               <DownloadOutlined />,
               <Popconfirm title="Are you sure？" onConfirm={()=>deleteCattle(currentuser,item.id)} icon={<QuestionCircleOutlined style={{ color: 'red' }} />}><DeleteOutlined />
               </Popconfirm>,

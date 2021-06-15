@@ -121,6 +121,8 @@ export class MapContainer extends Component {
   };
 
   render() {
+    const {lat,lon}=this.props;
+   
     if (!this.props.loaded) return <div>Loading...</div>;
 
     return (
@@ -133,15 +135,17 @@ export class MapContainer extends Component {
           border: 'solid #F0F0F0 1px',}}
                   initialCenter={
           {
-            lat: 37.778519,
-            lng: -122.40564
+            lat: parseFloat(lat),
+            lng: parseFloat(lon)
           }}
         zoom={20}
       >
         <Marker
           name="Marker 1"
           onClick={this.onMarkerClick}
-          position={{ lat: 37.778519, lng: -122.40564 }}
+          position={{  lat: parseFloat(lat),
+          lng: parseFloat(lon)
+        }}
           icon={{
   url:cowMapIcon,
   scaledSize: new this.props.google.maps.Size(37, 37)

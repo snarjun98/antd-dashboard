@@ -54,7 +54,7 @@ componentWillUnmount(){
              <Switch>
               {/* <Route exact path='/' render={()=>this.props.currentuser ?(<Redirect to='/dashboard' />):(<Redirect to='/auth' />)} /> */}
               <Route exact path='/' component={DashboardComponent}/>
-              <Route exact path='/cattle_profile' component={CattleProfile} /> 
+              <Route exact path='/cattle/:cattle_id' component={CattleProfile} /> 
               <Route exact path='/cattle_list' component={CattleList} /> 
               <Route exact path='/login' render={()=><Redirect to='/' />} /> 
               <Route exact path='/register' render={()=><Redirect to='/' />} />
