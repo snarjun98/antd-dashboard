@@ -3,9 +3,19 @@ import {UserOutlined,CommentOutlined,ToolOutlined,DashboardOutlined,EnvironmentO
 import wave from "./waves.svg";
 import {withRouter} from 'react-router-dom';
 const {Sider}=Layout;
-
-const SideBar =({history,match})=>(
-
+var welcome;
+var date = new Date();  
+var hour = date.getHours();
+if (hour < 12) {  
+  welcome = "Good Morning";  
+} else if (hour < 17) {  
+  welcome = "Good Afternoon";  
+} else if(hour <19) {  
+  welcome = "Good Evening";  
+} else{
+  welcome="Good Night"
+} 
+const SideBar =({history,match,currentuser})=>(
 <Sider width={240} breakpoint="lg" collapsedWidth="0" 
 onBreakpoint={broken => {
   console.log(broken);
@@ -17,11 +27,10 @@ onCollapse={(collapsed, type) => {
   position: 'fixed',
 }} >
   <div className='container' style={{position:'relative',height:'200px',width:'100%'}}>
-  <img src={wave} alt="Norway" style={{width:'100%',height:'100%',opacity:'0.9'}} />
-<div class="text-block" style={{position: 'absolute',
-bottom: '20px',right:'60px'}}>
-<h2>GOOD MORNING</h2>
-<p>USER NAME</p>
+  <img src={wave} alt="Norway" style={{width:'100%',height:'100%'}} />
+<div class="text-block" style={{position: 'absolute', bottom: '20px',right:'60px'}}>
+<h2>{welcome}</h2>
+<h3>{currentuser.displayName}</h3>
 </div>
 </div>
 <Menu

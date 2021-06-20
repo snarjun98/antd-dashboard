@@ -2,7 +2,7 @@ import React, { useState,useEffect } from 'react';
 import 'antd/dist/antd.css';
 import './sidebar.css';
 import { withRouter } from 'react-router-dom'
-import { List, Popconfirm, Layout, Card, Drawer, Form, Button, Col, Row, Input,Radio, Select } from 'antd';
+import { List, Popconfirm, Layout, Card, Drawer, Form, Button, Col, Row, Input,Radio, Select, Affix } from 'antd';
 import { DownloadOutlined, EyeOutlined, DeleteOutlined, QuestionCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import { selectCurrentUser } from '../redux/user/user.selector';
 import { createStructuredSelector } from 'reselect';
@@ -25,12 +25,11 @@ const CattleList = ({ history,currentuser }) => {
   const [sensorData,setSensorData]= useState({});
   const [visible, setVisible] = useState(false);
   const [image , setImage] = useState('');
-  const [imageUrl , setImageUrl] = useState('');
   const [form] = Form.useForm();
   useEffect(() => {
     console.log(currentuser)
-    sensData()
-    getResult(currentuser)  
+    sensData();
+    getResult(currentuser);  
   },[])
 
 const handleSubmit = async (values) => {
@@ -42,7 +41,6 @@ const handleSubmit = async (values) => {
   const imageData=values.image.file.originFileObj;
   const gender=values.gender;
   const color=values.color;
-  // const image_url=`images/${cattle_id}`;
   const image_name=imageData.name;
 
   try {
@@ -68,8 +66,8 @@ const handleSubmit = async (values) => {
   };
   
 
-  const getResult=async(currentuser)=> {
-    await firestore.doc(`cattles/${currentuser.invoiceId}`).get().then(
+  const getResult=(currentuser)=> {
+     firestore.doc(`cattles/${currentuser.invoiceId}`).get().then(
       data=>{
         setInfo(data.data())
       })
@@ -82,8 +80,8 @@ const handleSubmit = async (values) => {
   const onClose = () => {
     setVisible(false)
   };
-  const sensData=async()=> {
-    await firestore.collection(`sensors`).get().then((querySnapshot) => {
+  const sensData=()=> {
+     firestore.collection(`sensors`).onSnapshot((querySnapshot) => {
       querySnapshot.docs.forEach(element => {
           setSensorData(args=>({...args,[element.id]:element.data()}))
       }); 
@@ -93,8 +91,6 @@ const handleSubmit = async (values) => {
 
 
   const data=info;
-  console.log(data,currentuser.invoiceId)
-  console.log(sensorData);
 
   const deleteCattle = (currentuser,id)=>{
      firestore.doc(`cattles/${currentuser.invoiceId}`).update({
@@ -162,7 +158,7 @@ const handleSubmit = async (values) => {
         </List.Item>
       )}
     />
-    <Button type="primary" onClick={showDrawer}>
+ <Button style={{ position: 'fixed',bottom:'25px',right:'25px'}} type="primary" onClick={showDrawer}>
       <PlusOutlined /> New Cattle
         </Button>
     <Drawer

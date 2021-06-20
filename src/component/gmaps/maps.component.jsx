@@ -1,93 +1,6 @@
-// import React, { Component } from 'react';
-// import { Map,InfoWindow, GoogleApiWrapper,Marker } from 'google-maps-react';
 import cowMapIcon from './cow-map-icon.svg'
 import cowPic from '../cowPic.jpg';
-// const mapStyles = {
-//   width: '93%',
-//   height: '88%',
-//   border: 'solid #F0F0F0 1px',
-// };
 
-// export class MapContainer extends Component {
-//   constructor(props) {
-//     super(props);
-
-//     this.state = {
-//       isOpen: false,
-//     };
-//   }
-
-//   handleToggleOpen = () => {
-//     this.setState({
-//       isOpen: true,
-//     });
-//   };
-
-//   handleToggleClose = () => {
-//     this.setState({
-//       isOpen: false,
-//     });
-//   };
-
-//   // handleMouseOver = e => {
-//   //   this.setState({
-//   //       showInfoWindow: true
-//   //   });
-//   // };
-//   // handleMouseExit = e => {
-//   //   this.setState({
-//   //       showInfoWindow: false
-//   //   });
-//   // };
-//   render() {
-//     const {google} = this.props;
-
-//     return (
-//       <div>
-//       <Map
-//         google={google}
-//         zoom={20}
-//         style={mapStyles}
-//         initialCenter={
-//           {
-//             lat: -1.2884,
-//             lng: 36.8233
-//           }
-//         }
-//       >
-//       <Marker key="marker_1"
-// onClick={() => this.handleToggleOpen()}
-// position={{
-//   lat: -1.2884,
-//   lng: 36.8233
-// }}
-// icon={{
-//   url:cowMapIcon,
-//   scaledSize: new google.maps.Size(37, 37)
-// }}
-// // animation={
-// //   google.maps.Animation.DROP
-// // }
-// // onMouseOver={this.handleMouseOver} 
-// // onMouseOut={this.handleMouseExit}
-// >
-//                     {this.state.isOpen && (
-//                       <InfoWindow onCloseClick={() => this.handleToggleClose()}>
-//                         <span>Something</span>
-//                       </InfoWindow>
-//                     )}
-  
-//   </Marker></Map>
-//       </div>
-//     );
-//   }
-// }
-
-
-
-// export default GoogleApiWrapper({
-//   apiKey: 'AIzaSyB8Xbzc8GAtKunr7DxO4kWxS5323_AkVeE'
-// })(MapContainer);
 import React, { Component } from "react";
 import { Row,Avatar,Col} from 'antd';
 import { Map, InfoWindow, Marker, GoogleApiWrapper } from "google-maps-react";
@@ -121,7 +34,8 @@ export class MapContainer extends Component {
   };
 
   render() {
-    const {lat,lon}=this.props;
+    const {sensor_data,cattle_data}=this.props;
+
    
     if (!this.props.loaded) return <div>Loading...</div>;
 
@@ -135,16 +49,16 @@ export class MapContainer extends Component {
           border: 'solid #F0F0F0 1px',}}
                   initialCenter={
           {
-            lat: parseFloat(lat),
-            lng: parseFloat(lon)
+            lat: parseFloat(sensor_data.lat),
+            lng: parseFloat(sensor_data.lon)
           }}
         zoom={20}
       >
         <Marker
-          name="Marker 1"
+          name={cattle_data.name}
           onClick={this.onMarkerClick}
-          position={{  lat: parseFloat(lat),
-          lng: parseFloat(lon)
+          position={{  lat: parseFloat(sensor_data.lat),
+          lng: parseFloat(sensor_data.lon)
         }}
           icon={{
   url:cowMapIcon,
@@ -166,16 +80,16 @@ export class MapContainer extends Component {
     size={
       80
     }
-    src={cowPic}
+    src={cattle_data.image_url}
   />
   </div>
           </Col>
           <Col className="gutter-row" span={10} >
             
-              <h3>Mr.Ambba</h3>
-                <h5>Temp:98F </h5>
-                <h5>Pluse:98BPM</h5>
-                <h5>Activity:Walking</h5>
+              <h3>{cattle_data.name}</h3>
+                <h5>Temp:{sensor_data.temp}C </h5>
+                <h5>Pluse:{sensor_data.pulse}BPM</h5>
+                <h5>Activity:{sensor_data.activity}</h5>
                    </Col>
           </Row>
           </div>

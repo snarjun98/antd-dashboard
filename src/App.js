@@ -49,7 +49,7 @@ componentWillUnmount(){
         <Layout>
             <TopHeader />
             <Layout style={{marginTop:'60px'}}>
-            <SideBar />
+            <SideBar currentuser={this.props.currentuser} />
               <Layout  style={{marginLeft:'240px',paddingTop:'1px',paddingLeft:'1px'}}>
              <Switch>
               {/* <Route exact path='/' render={()=>this.props.currentuser ?(<Redirect to='/dashboard' />):(<Redirect to='/auth' />)} /> */}
